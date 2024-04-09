@@ -1,7 +1,8 @@
-\[Project Name\]
+# Task list
 ----------------
 
-**\[Short Description of your project\]**
+## Description
+Task List is a  C# application designed to task management .
 
 This project is built using the following technologies:
 
@@ -15,9 +16,9 @@ This project is built using the following technologies:
         
     *   SQL Server: The relational database management system used for data persistence.
         
-*   **Client-side:** (if applicable)
+*   **Client-side:**
     
-    *   MVC or Razor Pages: The chosen framework for structuring web pages and handling user interactions.
+    *   MVC & Razor Pages: The chosen framework for structuring web pages and handling user interactions.
         
 
 **Getting Started**
@@ -32,7 +33,7 @@ This project is built using the following technologies:
     
 
 `````
-git clone https://https://github.com/your-username/[project-name].git
+git clone https://github.com/Tess-mltx/TaskListCsharp.git
 `````
 
 
