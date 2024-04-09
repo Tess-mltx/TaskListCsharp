@@ -1,6 +1,7 @@
 # Task list
 ----------------
-
+## View the App
+https://tasklist20240409155054.azurewebsites.net/
 ## Description
 Task List is a  C# application designed to task management .
 
@@ -41,7 +42,7 @@ git clone https://github.com/Tess-mltx/TaskListCsharp.git
     
 
 `````
-cd [project-name]  dotnet restore
+cd TaskList dotnet restore
 `````
 
 

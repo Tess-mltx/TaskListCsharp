@@ -1,9 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TaskList.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
