@@ -21,7 +21,7 @@ namespace TaskList.Data
         {
             base.OnModelCreating(modelBuilder);
             this.SeedUsers(modelBuilder);
-            this.SeedUserRoles(modelBuilder);
+            this.SeedRoles(modelBuilder);
 
             // Configure User-Assignment relationship
             modelBuilder.Entity<User>()
@@ -55,7 +55,8 @@ namespace TaskList.Data
             {
                 Name = "Doctor",
                 Email = "Doctor@tardis.com",
-            }
+                RoleId = 1,
+            };
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
             passwordHasher.HashPassword(user, "Doctor*L'odeur de la terre apres la pluie");
             modelBuilder.Entity<User>().HasData(user);
@@ -63,13 +64,13 @@ namespace TaskList.Data
 
         private void SeedRoles (ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IdentityRole>().HasData(
+            modelBuilder.Entity<Role>().HasData(
                 new Role()
                 {
                      RoleId = 1,
                      RoleName = "Admin",
                      NormalizedName = "Admin",
-                }
+                },
                 new Role()
                 {
                     RoleId = 2,
@@ -79,10 +80,124 @@ namespace TaskList.Data
                 );
         }
 
-        private void SeedUserRoles(ModelBuilder modelBuilder)
+        private void SeedPermissions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+            modelBuilder.Entity<Permission>().HasData(
+                new Permission()
+                {
+                    PermissionId = 1,
+                    Description = "Create User",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 2,
+                    Description = "Read User",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 3,
+                    Description = "Update User",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 4,
+                    Description = "Delete User",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 5,
+                    Description = "Read Own Task",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 6,
+                    Description = "Create Own Task",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 7,
+                    Description = "Update Own Task",
+                },
+
+                new Permission()
+                {
+                    PermissionId = 8,
+                    Description = "Delete Own Task",
+                }
+                );
+        }
+
+        private void SeedRole_Permission(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Role_Permission>().HasData(
                 
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 1,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 2,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 3,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 4,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 5,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 6,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 7,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 1,
+                    PermissionId = 8,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 2,
+                    PermissionId = 5,
+                },
+
+                new Role_Permission()
+                {
+                    RoleId = 2,
+                    PermissionId = 6,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 2,
+                    PermissionId = 7,
+                },
+                new Role_Permission()
+                {
+                    RoleId = 2,
+                    PermissionId = 8,
+                }
                 );
         }
     }
