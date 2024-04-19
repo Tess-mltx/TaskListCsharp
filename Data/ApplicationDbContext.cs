@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using TaskList.Models.Entities;
 
@@ -19,6 +20,8 @@ namespace TaskList.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            this.SeedUsers(modelBuilder);
+            this.SeedUserRoles(modelBuilder);
 
             // Configure User-Assignment relationship
             modelBuilder.Entity<User>()
@@ -45,6 +48,42 @@ namespace TaskList.Data
                 .HasOne(rp => rp.Permission)
                 .WithMany(p => p.RolePermissions)
                 .HasForeignKey(rp => rp.PermissionId);
+        }
+        private void SeedUsers (ModelBuilder modelBuilder)
+        {
+            User user = new User()
+            {
+                Name = "Doctor",
+                Email = "Doctor@tardis.com",
+            }
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+            passwordHasher.HashPassword(user, "Doctor*L'odeur de la terre apres la pluie");
+            modelBuilder.Entity<User>().HasData(user);
+        }
+
+        private void SeedRoles (ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new Role()
+                {
+                     RoleId = 1,
+                     RoleName = "Admin",
+                     NormalizedName = "Admin",
+                }
+                new Role()
+                {
+                    RoleId = 2,
+                    RoleName = "User",
+                    NormalizedName = "User",
+                }
+                );
+        }
+
+        private void SeedUserRoles(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                
+                );
         }
     }
 }
