@@ -53,6 +53,7 @@ namespace TaskList.Data
         {
             User user = new User()
             {
+                UserId = Guid.NewGuid(),
                 Name = "Doctor",
                 Email = "Doctor@tardis.com",
                 RoleId = 1,

@@ -1,9 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="text-center">
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <h1 class="display-4">Welcome @User.Identity.Name </h1>
+
+} else
+{
     <h1 class="display-4">Welcome to the beginnings of my first project in C#! 🎉</h1>
+
+}
     <p>Here you will learn about the exciting beginnings of my journey in the world of c# ASP .NET & Entity Framework core.</br> 
        Although this project is still in its early stages, expect it to evolve and improve over the coming weeks!</br>
        Stay tuned for new features, improvements and updates that will make this experience more rewarding! 🚀

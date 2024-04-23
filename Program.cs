@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using TaskList.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add Google OAuth
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    var googleKeysSection = builder.Configuration.GetSection("GoogleKeys");
+    googleOptions.ClientId = googleKeysSection.GetValue<string>("ClientId");
+    googleOptions.ClientSecret = googleKeysSection.GetValue<string>("ClientSecret");
+});
 
 // Inject DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
