@@ -7,6 +7,7 @@ using TaskList.Models;
 using TaskList.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using TaskList.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskList.Controllers
 {
@@ -47,18 +48,22 @@ namespace TaskList.Controllers
                     claim.Value
                 });
 
-                var user = new User
+                var user = new RegisterViewModel
                 {
                     Name = result.Principal.FindFirst(ClaimTypes.Name).Value,
                     Email = result.Principal.FindFirst(ClaimTypes.Email).Value,
                     RoleId = 2,
                 };
-                await dbContext.Users.AddAsync(user);
-                await dbContext.SaveChangesAsync();
 
-                //var name = result.Principal.FindFirst(ClaimTypes.Name).Value; // Test line
-                //return Json(name); // Test line OK
-                return RedirectToAction("Index", "Home", new { area = "" });
+                //await dbContext.Users.AddAsync(user);
+                //await dbContext.SaveChangesAsync();
+
+                //return RedirectToAction("index", "Home", new { area = "" });
+
+
+                //var name = result.Principal.FindFirst(ClaimTypes.Name).Value; // Test line OK
+                //return Json(user); // Test line OK
+                return RedirectToAction("RegisterUser", "User", user );
             }
             catch (Exception ex)
             {

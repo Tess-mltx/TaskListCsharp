@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 // Inject DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("TaskList")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("LocalTaskList")));
 
 // Add Identity 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();

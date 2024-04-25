@@ -21,8 +21,8 @@ namespace TaskList.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel viewModel)
+        //[HttpPost]
+        public async Task<IActionResult> RegisterUser(RegisterViewModel viewModel)
         {
             var user = new User
             {
@@ -35,8 +35,8 @@ namespace TaskList.Controllers
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
 
-            //return RedirectToAction("index");
-            return RedirectToAction("List", "Assignments");
+            return RedirectToAction("index", "Home", new { area = "" });
+            //return RedirectToAction("List", "Assignments");
 
 
 
