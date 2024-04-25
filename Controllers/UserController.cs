@@ -28,13 +28,16 @@ namespace TaskList.Controllers
             {
                 Name = viewModel.Name,
                 Email = viewModel.Email,
-                Password = viewModel.Password,
-                PasswordConfirmation = viewModel.PasswordConfirmation,
+                RoleId = 2
+                //Password = viewModel.Password,
+                //PasswordConfirmation = viewModel.PasswordConfirmation,
             };
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
 
-            return RedirectToAction("index");
+            //return RedirectToAction("index");
+            return RedirectToAction("List", "Assignments");
+
 
 
         }

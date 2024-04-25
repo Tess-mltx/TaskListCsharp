@@ -2,11 +2,23 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using TaskList.Models;
+using TaskList.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using TaskList.Data;
 
 namespace TaskList.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly ApplicationDbContext dbContext;
+
+        public LoginController(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -14,26 +26,45 @@ namespace TaskList.Controllers
 
         public async Task Login()
         {
-            await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme,
-                new AuthenticationProperties
-                {
-                    RedirectUri = Url.Action("GoogleResponse")
-                });
+        var authProperties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleResponse")
+            };
+
+            await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, authProperties);
         }
 
         public async Task<IActionResult> GoogleResponse()
         {
-            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-            var claims = result.Principal.Identities.FirstOrDefault().Claims.Select(claim => new
+            try
             {
-                claim.Issuer,
-                claim.OriginalIssuer,
-                claim.Type,
-                claim.Value
-            });
+                var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+                var claims = result.Principal.Identities.FirstOrDefault().Claims.Select(claim => new
+                {
+                    claim.Issuer,
+                    claim.OriginalIssuer,
+                    claim.Type,
+                    claim.Value
+                });
 
-            //return Json(claims);
-            return RedirectToAction("Index", "Home", new { area = "" });
+                var user = new User
+                {
+                    Name = result.Principal.FindFirst(ClaimTypes.Name).Value,
+                    Email = result.Principal.FindFirst(ClaimTypes.Email).Value,
+                    RoleId = 2,
+                };
+                await dbContext.Users.AddAsync(user);
+                await dbContext.SaveChangesAsync();
+
+                //var name = result.Principal.FindFirst(ClaimTypes.Name).Value; // Test line
+                //return Json(name); // Test line OK
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred {ex}");
+            }
+            
         }
 
     }
