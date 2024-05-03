@@ -14,6 +14,7 @@ namespace TaskList.Controllers
     public class LoginController : Controller
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public LoginController(ApplicationDbContext dbContext)
         {
@@ -55,11 +56,7 @@ namespace TaskList.Controllers
                     RoleId = 2,
                 };
 
-                //await dbContext.Users.AddAsync(user);
-                //await dbContext.SaveChangesAsync();
-
-                //return RedirectToAction("index", "Home", new { area = "" });
-
+                HttpContext.Session.SetString("UserName", user.Name);
 
                 //var name = result.Principal.FindFirst(ClaimTypes.Name).Value; // Test line OK
                 //return Json(user); // Test line OK

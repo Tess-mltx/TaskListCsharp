@@ -35,7 +35,7 @@ namespace TaskList.Controllers
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
 
-            return RedirectToAction("index", "Home", new { area = "" });
+            return RedirectToAction("index", "Home");
             //return RedirectToAction("List", "Assignments");
 
 

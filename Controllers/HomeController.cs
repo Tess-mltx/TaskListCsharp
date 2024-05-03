@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication;
+
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net.Mail;
-using System.Security.Claims;
 using TaskList.Models;
 
 namespace TaskList.Controllers
@@ -19,11 +16,12 @@ namespace TaskList.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            //var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
             //var name = result.Principal.FindFirst(ClaimTypes.Name).Value; // Test line
             //return Json(name); // Test line OK
-
-            return View(result);
+            
+            return View();
             //return View(new
             //{
               //  Name = User.Identity.Name,
