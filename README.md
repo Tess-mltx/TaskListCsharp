@@ -1,7 +1,5 @@
 # Task list
 ----------------
-## View the App
-https://tasklist20240409155054.azurewebsites.net/
 ## Description
 Task List is a  C# application designed to task management .
 
